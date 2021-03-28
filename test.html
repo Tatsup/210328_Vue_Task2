@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<main id="app">
+  <div v-if="center" key="center">
+  <p>最初の画面</p>
+  <div v-on:click="watchLeft">左の画面にいく</div>
+  <div v-on:click="watchRight">右の画面にいく</div>
+  </div>
+   
+  <div v-if="left" key="left">
+  <p>左の画面</p>
+  <div v-on:click="watchCenter">最初の画面に戻る</div>
+  <div v-on:click="watchRight">右の画面にいく</div>
+  </div>
+   
+  <div v-if="right" key="right">
+  <p>右の画面</p>
+  <div v-on:click="watchCenter">最初の画面に戻る</div>
+  <div v-on:click="watchLeft">左の画面にいく</div>
+  </div>
+  </main>
+   
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data() {
+        return {
+          center: true,
+          left: false,
+          right: false,
+        };
+      },
+      methods: {
+        watchCenter: function () {
+          this.center = true;
+          this.left = false;
+          this.right = false;
+        },
+        watchLeft: function () {
+          this.center = false;
+          this.left = true;
+          this.right = false;
+        },
+        watchRight: function () {
+          this.center = false;
+          this.left = false;
+          this.right = true;
+        },
+      }
+    });
+  </script>
