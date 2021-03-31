@@ -5,16 +5,6 @@
 </template>
 
 <script>
-  // export default({
-  //   methods: {
-  //     moveBackToPage () {
-        
-  //     },
-  //     moveOnToPage () {
-        
-  //     },
-  //   }
-  // })
 </script>
 
 <style>
