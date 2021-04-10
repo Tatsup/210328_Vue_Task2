@@ -3,8 +3,15 @@
     <p>STEP1</p>
     <p>お客様情報を入力してください</p>
     <p>-性別-</p>
-    <label v-for="sex in sexArray" v-bind:key="sex">
-      <input type="radio" name="sex">{{ sex }}
+    <!-- <label v-for="sex in sexArray" v-bind:key="sex">
+      <input type="radio" name="sex">{{ sex }} -->
+    <!-- <label v-on:change="selectSex"> -->
+    <label>
+      <input type="radio" name="男性" value="男性" v-model="mySex">男性
+    </label>
+    <!-- <label v-on:change="selectSex"> -->
+    <label>
+      <input type="radio" name="女性" value="女性" v-model="mySex">女性
     </label>
     <br>
     <p>-生年月日-</p>
@@ -35,13 +42,14 @@ import { yearArray } from '../utils/definition'
     // name: 'PersonalInfo',
     data() {
       return {
-        sexArray: ['男性','女性'],
+        mySex: '', // valueを入れる
+        // sexArray: ['男性','女性'],
         yearArray,
         yearString: '1990年（平成2年）', // yearArrayに存在する要素出ないとエラー発生
         year: '',
         month: 1,
         day: 1,
-        maxDays: 31
+        maxDays: 31,
       }
     },
     created() {
@@ -60,6 +68,12 @@ import { yearArray } from '../utils/definition'
       },
       moveOnToPage: function() {
         this.$router.push('/questions');
+        // storeのmutationsをコミット
+        this.$store.commit(
+          'selectStep1Info',
+          { userSex : this.mySex ,
+            userBirthday : `${this.year}年${this.month}月${this.day}日`
+          });
       },
     }
   });
