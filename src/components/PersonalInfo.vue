@@ -1,0 +1,77 @@
+<template>
+  <div>
+    <p>STEP1</p>
+    <p>お客様情報を入力してください</p>
+    <p>-性別-</p>
+    <label>
+      <input type="radio" name="男性" value="男性" v-model="mySex">男性
+    </label>
+    <label>
+      <input type="radio" name="女性" value="女性" v-model="mySex">女性
+    </label>
+    <br>
+    <p>-生年月日-</p>
+    <select v-model="yearString" v-on:change="getYear">
+      <option v-for="n in yearArray" v-bind:key="n">{{ n }}</option>
+    </select>
+    年
+    <select v-model="month" v-on:change="getMaxDays">
+      <option v-for="n in 12" v-bind:key="n">{{ n }}</option>
+    </select>
+    月
+    <select v-model="day">
+      <option v-for="n in maxDays" v-bind:key="n">{{ n }}</option>
+    </select>
+    日
+    <p>
+    <button v-on:click="moveBack">前へ戻る</button>
+    <button v-on:click="moveOn">次へ進む</button>
+    </p>
+  </div>
+</template>
+
+<script>
+// 年月日をインポート
+import { yearArray } from '../utils/definition' 
+
+  export default({
+    data() {
+      return {
+        mySex: '', // valueを入れる
+        yearArray,
+        yearString: '1990年（平成2年）', // yearArrayに存在する要素出ないとエラー発生
+        year: '',
+        month: 1,
+        day: 1,
+        maxDays: 31,
+      }
+    },
+    created() {
+      this.getYear();
+      this.getMaxDays();
+    },
+    methods: {
+      getYear: function () {
+        this.year = Number(this.yearString.slice(0,4));
+      },
+      getMaxDays: function () {
+        this.maxDays = new Date(this.year, this.month, 0).getDate();
+      },
+      moveBack: function() {
+        this.$router.back;
+      },
+      moveOn: function() {
+        this.$router.push('/questions');
+        // storeのmutationsをコミット
+        this.$store.commit(
+          'selectStep1Info',
+          { userSex : this.mySex ,
+            userBirthday : `${this.year}年${this.month}月${this.day}日`
+          });
+      },
+    }
+  });
+</script>
+
+<style>
+</style>
