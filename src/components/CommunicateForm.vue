@@ -5,8 +5,8 @@
     <p>-ご相談内容-</p>
     <textarea name="content" rows="15" cols="60" v-model="formContents"></textarea>
     <p>
-    <button v-on:click="moveBackToPage">前へ戻る</button>
-    <button v-on:click="moveOnToPage">次へ進む</button>
+    <button v-on:click="moveBack">前へ戻る</button>
+    <button v-on:click="moveOn">次へ進む</button>
     </p>
   </div>
 </template>
@@ -21,10 +21,10 @@
 
     },
     methods: {
-      moveBackToPage () {
+      moveBack () {
         this.$router.back();
       },
-      moveOnToPage () {
+      moveOn () {
         this.$router.push('/confirm');
         // storeのmutationsをコミット
         this.$store.commit( 'selectStep3Info', this.formContents );

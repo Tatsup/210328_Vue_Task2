@@ -28,7 +28,9 @@ const store = new Vuex.Store({
     },
   },
   actions: {},
-  getters: {}
+  getters: {
+    outputInfo: (state) => state
+  }
 });
 
 export default store; // sotreをエクスポート
